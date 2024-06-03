@@ -4,6 +4,9 @@ services:
     container_name: weatherapp_client
     environment:
       ENDPOINT: ${ENDPOINT}
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     ports:
       - '8000:8000'
     depends_on:
@@ -14,5 +17,8 @@ services:
     environment:
       APPID: ${APPID}
       TARGET_CITY: ${TARGET_CITY}
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     ports:
       - '9000:9000'
