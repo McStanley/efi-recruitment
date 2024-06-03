@@ -2,6 +2,8 @@ services:
   client:
     build: ./frontend
     container_name: weatherapp_client
+    environment:
+      ENDPOINT: ${ENDPOINT}
     ports:
       - '8000:8000'
     depends_on:
@@ -9,5 +11,8 @@ services:
   server:
     build: ./backend
     container_name: weatherapp_server
+    environment:
+      APPID: ${APPID}
+      TARGET_CITY: ${TARGET_CITY}
     ports:
       - '9000:9000'
