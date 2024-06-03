@@ -1,0 +1,13 @@
+services:
+  client:
+    build: ./frontend
+    container_name: weatherapp_client
+    ports:
+      - '8000:8000'
+    depends_on:
+      - server
+  server:
+    build: ./backend
+    container_name: weatherapp_server
+    ports:
+      - '9000:9000'
