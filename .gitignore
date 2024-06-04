@@ -1,6 +1,8 @@
+.vscode
 **/node_modules
 .env
 **/.terraform
 *.tfstate
 *.tfstate.backup
 **/.terraform.lock.hcl
+ansible/hosts.ini

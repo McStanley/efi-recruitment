@@ -1,0 +1,58 @@
+---
+- hosts: efi_recruitment
+  become: yes
+  become_method: sudo
+
+  vars_prompt:
+    - name: project_source
+      prompt: Specify path to local project directory
+      default: /home/stanley/projects/efi-recruitment/
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        update_cache: true
+        name: nginx
+        state: latest
+
+    - name: Configure Nginx to proxy traffic from port 80 to 8000
+      template:
+        src: nginx.j2
+        dest: /etc/nginx/sites-available/default
+
+    - name: Restart Nginx
+      ansible.builtin.shell:
+        cmd: nginx -s reload
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        update_cache: true
+        name: docker-ce
+        state: latest
+
+    - name: Copy project folder to the EC2 instance
+      ansible.builtin.synchronize:
+        src: '{{ project_source }}'
+        dest: /home/ubuntu/efi-recruitment/
+        rsync_opts:
+          - '--exclude=node_modules/'
+
+    - name: enable Docker services
+      service:
+        name: 'docker'
+        state: started
+        enabled: yes
+
+    - name: Run Docker Compose
+      community.docker.docker_compose_v2:
+        project_src: /home/ubuntu/efi-recruitment/
