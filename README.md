@@ -108,3 +108,25 @@ To deploy this project follow below instructions:
 ### Enjoy your deployment
 
 To see your deployment live, copy the public IPv4 address of your EC2 instance and open it in the browser.
+
+## Run locally
+
+1. Install and start [Docker Desktop](https://docs.docker.com/desktop/).
+2. From project root directory run:
+
+   ```bash
+   docker compose up --build
+   ```
+
+3. Open <http://localhost:8000> to see it live.
+
+## Inspect my deployment
+
+1. Find the current IP address of my deployment inside the _About_ section at the top of this repository.
+2. Execute the following command:
+
+   ```bash
+   ssh -i /path/to/id_rsa_internship.pem ubuntu@<IPv4>
+   ```
+
+   ... replacing the placeholder with the appropriate IP address.
