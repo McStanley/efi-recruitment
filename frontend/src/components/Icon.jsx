@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Icon({ icon, text }) {
   return (
-    <img src={`/img/${icon}.svg`} alt={text} />
+    <img src={`/img/${icon}.svg`} alt={text} className="icon" />
   );
 }
 

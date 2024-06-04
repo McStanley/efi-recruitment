@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const GLOBALS = {
   'process.env.ENDPOINT': JSON.stringify(process.env.ENDPOINT || 'http://0.0.0.0:9000/api'),
+  'process.env.TARGET_CITY': JSON.stringify(process.env.TARGET_CITY || 'Warsaw,PL'),
 };
 
 module.exports = {

@@ -4,6 +4,7 @@ services:
     container_name: weatherapp_client
     environment:
       ENDPOINT: ${ENDPOINT}
+      TARGET_CITY: ${TARGET_CITY}
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -16,7 +17,6 @@ services:
     container_name: weatherapp_server
     environment:
       APPID: ${APPID}
-      TARGET_CITY: ${TARGET_CITY}
     volumes:
       - ./backend:/app
       - /app/node_modules
