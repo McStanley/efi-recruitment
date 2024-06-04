@@ -6,7 +6,6 @@
     "node": true
   },
   "rules": {
-    "semi": ["error", "always"],
-    "comma-dangle": ["error", "always"]
+    "semi": ["error", "always"]
   }
 }
