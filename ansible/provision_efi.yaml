@@ -15,7 +15,23 @@
         name: nginx
         state: latest
 
-    - name: Configure Nginx to proxy traffic from port 80 to 8000
+    - name: Create directory for SSL certificates
+      file:
+        path: /etc/nginx/ssl
+        state: directory
+        mode: '0755'
+
+    - name: Create private key (RSA, 4096 bits)
+      community.crypto.openssl_privatekey:
+        path: /etc/nginx/ssl/certificate.key
+
+    - name: Create self-signed certificate
+      community.crypto.x509_certificate:
+        path: /etc/nginx/ssl/certificate.pem
+        privatekey_path: /etc/nginx/ssl/certificate.key
+        provider: selfsigned
+
+    - name: Configure Nginx
       template:
         src: nginx.j2
         dest: /etc/nginx/sites-available/default
